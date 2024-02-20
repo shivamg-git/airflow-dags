@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.utils.dates import days_ago
+from airflow.models.param import Param
 
 def custom_success_callback(context):
     print("Task has completed successfully!")
@@ -38,25 +39,23 @@ default_args= {
     'email': ['gupta.shivamg.work@gmail.com'],
     'email_on_failure': False,
     'email_on_retry': False,
-    'retries': 5,
-    'retry_delay': timedelta(minutes=2),
-    'execution_timeout': timedelta(seconds=90),
+    'retries': 1,
+    'retry_delay': timedelta(seconds=5),
+    'execution_timeout': timedelta(seconds=10),
     # https://marclamberti.com/blog/airflow-trigger-rules-all-you-need-to-know/
-    # all_success, all_failed, all_done, one_failed, one_success, none_failed, none_skipped, none_failed_min_one_success
+    # all_success, all_failed, all_done, one_failed, one_success, none_failed, none_skipped, none_failed_min_one_success, dummy
     'trigger_rule': 'all_success',
     'sla': timedelta(minutes=2),
     'on_failure_callback': custom_failure_callback,
     'on_success_callback': custom_success_callback,
     'on_retry_callback': custom_retry_callback,
-    'sla_miss_callback': custom_sla_miss_callback
+    'sla_miss_callback': custom_sla_miss_callback,
 
-    # 'queue': 'bash_queue',
+    # Resource pool to use
     # 'pool': 'backfill',
     # 'priority_weight': 10,
     # 'wait_for_downstream': False,
-
-    
-
+    # 'queue': 'bash_queue'
 }
 
 
@@ -92,7 +91,14 @@ with DAG(
     },
 
     #  A dictionary of default parameters to be used as constructor keyword parameters when initialising operators
-    default_args =  default_args
+    default_args =  default_args,
+
+    # https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/params.html
+    # a dictionary of DAG level parameters that are made accessible in templates, namespaced under params. These params can be overridden at the task level.
+    params= {
+        "x" : Param(5, type="Integer", minimum=3),
+        "Y":"YYYY"
+    }
     
 
 
@@ -114,8 +120,12 @@ with DAG(
     
     bash_operator3 = BashOperator(
         task_id = "bash3",
-        bash_command="sleep 100",
+        bash_command="sleep 11",
         dag=dag
     )
 
-    [bash_operator, bash_operator2, bash_operator3]
+    bash_operator4 = BashOperator(
+        task_id = "bash3",
+        bash_command="{{ parmas.x }},{{ params.y}}",
+        dag=dag
+    )
