@@ -125,7 +125,7 @@ with DAG(
     )
 
     bash_operator4 = BashOperator(
-        task_id = "bash3",
+        task_id = "bash4",
         bash_command="{{ parmas.x }},{{ params.y}}",
         dag=dag
     )
