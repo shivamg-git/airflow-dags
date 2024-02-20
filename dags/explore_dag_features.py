@@ -6,7 +6,7 @@ from airflow.operators.bash import BashOperator
 with DAG(
     # https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/dag/index.html
 
-    dag_id              = "bash_operator",
+    dag_id              = "dag_test",
     description         = "simple bash operator",
 
     # """https://crontab.guru/ => CRON Expression """
