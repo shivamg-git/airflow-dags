@@ -74,7 +74,7 @@ with DAG(
 
     bash_operator = BashOperator(
         task_id = "bash",
-        bash_command="echo '{{ call | hello }}'",
+        bash_command="exit 123",
         dag=dag
     )
     bash_operator
