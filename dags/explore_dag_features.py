@@ -97,7 +97,7 @@ with DAG(
     # a dictionary of DAG level parameters that are made accessible in templates, namespaced under params. These params can be overridden at the task level.
     params= {
         "x" : Param(5, type="integer", minimum=3),
-        "Y":"YYYY"
+        "y":"YYYY"
     }
     
 
