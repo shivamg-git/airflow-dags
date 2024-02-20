@@ -96,7 +96,7 @@ with DAG(
     # https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/params.html
     # a dictionary of DAG level parameters that are made accessible in templates, namespaced under params. These params can be overridden at the task level.
     params= {
-        "x" : Param(5, type="Integer", minimum=3),
+        "x" : Param(5, type="integer", minimum=3),
         "Y":"YYYY"
     }
     
