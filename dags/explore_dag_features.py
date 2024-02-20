@@ -44,18 +44,17 @@ default_args= {
     # https://marclamberti.com/blog/airflow-trigger-rules-all-you-need-to-know/
     # all_success, all_failed, all_done, one_failed, one_success, none_failed, none_skipped, none_failed_min_one_success
     'trigger_rule': 'all_success',
-
+    'sla': timedelta(minutes=2),
+    'on_failure_callback': custom_failure_callback,
+    'on_success_callback': custom_success_callback,
+    'on_retry_callback': custom_retry_callback,
+    'sla_miss_callback': custom_sla_miss_callback
 
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
     # 'wait_for_downstream': False,
-    'sla': timedelta(minute=2),
 
-    'on_failure_callback': custom_failure_callback,
-    'on_success_callback': custom_success_callback,
-    'on_retry_callback': custom_retry_callback,
-    'sla_miss_callback': custom_sla_miss_callback
     
 
 }
