@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 
 
-dag = DAG(
+with DAG(
     dag_id              = "bash_operator",
     description         = "simple bash operator",
 
@@ -16,10 +16,10 @@ dag = DAG(
     
     # A date beyond which your DAG won’t run, leave to None for open-ended scheduling
     end_date            = None, # datetime
-    )
+    ) as dag:
 
-bash_operator = BashOperator(
-    bash_command="echo 'Hello World'",
-    dag=dag
-)
-dag.run()
+    bash_operator = BashOperator(
+        bash_command="echo 'Hello World'",
+        dag=dag
+    )
+    bash_operator
