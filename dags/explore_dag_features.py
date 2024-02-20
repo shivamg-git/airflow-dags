@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.utils.dates import days_ago
@@ -15,7 +15,7 @@ default_args= {
     'email_on_failure': True,
     'email_on_retry': True,
     'retries': 1,
-    'retry_delay': datetime.timedelta(minutes=5),
+    'retry_delay': timedelta(minutes=5),
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
