@@ -1,3 +1,4 @@
+from datetime import datetime
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 
@@ -12,7 +13,7 @@ with DAG(
     schedule            = "@continuous",
     
     # """The timestamp from which the scheduler will attempt to backfill"""
-    start_date          = "0 days", # datetime
+    start_date          = datetime.utcnow(), # datetime
     
     # A date beyond which your DAG won’t run, leave to None for open-ended scheduling
     end_date            = None, # datetime
