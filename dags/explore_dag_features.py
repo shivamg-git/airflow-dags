@@ -15,16 +15,14 @@ default_args= {
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,
-    'retry_delay': timedelta(minutes=5),
+    'retry_delay': timedelta(minutes=2),
 
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
-    # 'end_date': datetime(2016, 1, 1),
     # 'wait_for_downstream': False,
-    # 'dag': dag,
     # 'sla': timedelta(hours=2),
-    'execution_timeout': timedelta(seconds=30),
+    'execution_timeout': timedelta(seconds=10),
     # 'on_failure_callback': some_function,
     # 'on_success_callback': some_other_function,
     # 'on_retry_callback': another_function,
@@ -88,4 +86,9 @@ with DAG(
         dag=dag
     )
     
-    [bash_operator, bash_operator2]
+    bash_operator3 = BashOperator(
+        task_id = "bash3",
+        bash_command="sleep 30",
+        dag=dag
+    )
+    [bash_operator, bash_operator2, bash_operator3]
