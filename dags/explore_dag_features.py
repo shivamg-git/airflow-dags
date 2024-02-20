@@ -22,7 +22,7 @@ default_args= {
     'email_on_retry': False,
     'retries': 1,
     'retry_delay': timedelta(minutes=2),
-    'execution_timeout': timedelta(seconds=10),
+    'execution_timeout': timedelta(seconds=30),
     # https://marclamberti.com/blog/airflow-trigger-rules-all-you-need-to-know/
     # all_success, all_failed, all_done, one_failed, one_success, none_failed, none_skipped, none_failed_min_one_success
     'trigger_rule': 'all_success',
@@ -97,7 +97,7 @@ with DAG(
     
     bash_operator3 = BashOperator(
         task_id = "bash3",
-        bash_command="sleep 30",
+        bash_command="sleep 20",
         dag=dag
     )
     [bash_operator, bash_operator2, bash_operator3]
