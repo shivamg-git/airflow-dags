@@ -38,7 +38,7 @@ default_args= {
     'email': ['gupta.shivamg.work@gmail.com'],
     'email_on_failure': False,
     'email_on_retry': False,
-    'retries': 1,
+    'retries': 5,
     'retry_delay': timedelta(minutes=2),
     'execution_timeout': timedelta(seconds=90),
     # https://marclamberti.com/blog/airflow-trigger-rules-all-you-need-to-know/
@@ -50,7 +50,7 @@ default_args= {
     # 'pool': 'backfill',
     # 'priority_weight': 10,
     # 'wait_for_downstream': False,
-    'sla': timedelta(minute=1),
+    'sla': timedelta(minute=2),
 
     'on_failure_callback': custom_failure_callback,
     'on_success_callback': custom_success_callback,
@@ -118,5 +118,5 @@ with DAG(
         bash_command="sleep 100",
         dag=dag
     )
-    
+
     [bash_operator, bash_operator2, bash_operator3]
