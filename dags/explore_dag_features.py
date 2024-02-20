@@ -39,7 +39,7 @@ with DAG(
 
     bash_operator = BashOperator(
         task_id = "bash",
-        bash_command="echo '{{ call }}'",
+        bash_command="echo '{{ call | hello }}'",
         dag=dag
     )
     bash_operator
