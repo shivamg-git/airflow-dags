@@ -12,13 +12,14 @@ with DAG(
     schedule            = "@continuous",
     
     # """The timestamp from which the scheduler will attempt to backfill"""
-    start_date          = None, # datetime
+    start_date          = "0 days", # datetime
     
     # A date beyond which your DAG won’t run, leave to None for open-ended scheduling
     end_date            = None, # datetime
     ) as dag:
 
     bash_operator = BashOperator(
+        task_id = "bash",
         bash_command="echo 'Hello World'",
         dag=dag
     )
