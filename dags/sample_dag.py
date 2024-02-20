@@ -13,7 +13,7 @@ def hello_world():
     print("hellow World")
 
     
-with DAG(dag_id="test_dag_with_no_tags", default_args=default_args, schedule_interval='@once') as dag:
+with DAG(dag_id="sample_dags", default_args=default_args, schedule_interval='@once') as dag:
     task_a = PythonOperator(
         task_id="test_task_a",
         python_callable=hello_world
