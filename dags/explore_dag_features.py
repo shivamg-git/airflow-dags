@@ -12,10 +12,11 @@ default_args= {
     'depends_on_past': False,           # depends_on_past (boolean) when set to True, keeps a task from getting triggered if the previous schedule for the task hasn’t succeeded.
     'start_date': days_ago(2),
     'email': ['gupta.shivamg.work@gmail.com'],
-    'email_on_failure': True,
-    'email_on_retry': True,
+    'email_on_failure': False,
+    'email_on_retry': False,
     'retries': 1,
-    'retry_delay': timedelta(minutes=5)
+    'retry_delay': timedelta(minutes=5),
+
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
@@ -23,12 +24,15 @@ default_args= {
     # 'wait_for_downstream': False,
     # 'dag': dag,
     # 'sla': timedelta(hours=2),
-    # 'execution_timeout': timedelta(seconds=300),
+    'execution_timeout': timedelta(seconds=30),
     # 'on_failure_callback': some_function,
     # 'on_success_callback': some_other_function,
     # 'on_retry_callback': another_function,
     # 'sla_miss_callback': yet_another_function,
-    # 'trigger_rule': 'all_success'
+    
+    # https://marclamberti.com/blog/airflow-trigger-rules-all-you-need-to-know/
+    # all_success, all_failed, all_done, one_failed, one_success, none_failed, none_skipped, none_failed_min_one_success
+    'trigger_rule': 'all_success'
 }
 
 
@@ -77,4 +81,11 @@ with DAG(
         bash_command="exit 123",
         dag=dag
     )
-    bash_operator
+
+    bash_operator2 = BashOperator(
+        task_id = "bash2",
+        bash_command="echo '{{call | Hi }}'",
+        dag=dag
+    )
+    
+    [bash_operator, bash_operator2]
