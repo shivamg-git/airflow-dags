@@ -22,3 +22,4 @@ bash_operator = BashOperator(
     bash_command="echo 'Hello World'",
     dag=dag
 )
+dag.run()
