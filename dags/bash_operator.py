@@ -11,6 +11,7 @@ with DAG(
     # """https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dag-run.html => CRON PRESET"""
     # """timedelta eg. timedelta(minute=30)"""
     schedule            = "@continuous",
+    max_active_runs     = 1,
     
     # """The timestamp from which the scheduler will attempt to backfill"""
     start_date          = datetime.utcnow(), # datetime
