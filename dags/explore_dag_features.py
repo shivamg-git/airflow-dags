@@ -30,7 +30,7 @@ with DAG(
 
     # a dictionary of filters that will be exposed in your jinja templates.
     user_defined_filters = {
-
+        "hello":lambda name: 'Hello %s' % name
     }
 
 
