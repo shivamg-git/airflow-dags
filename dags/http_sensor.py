@@ -11,6 +11,7 @@ with DAG(
 ) as dag:
     
     http_sensor = HttpSensor(
+        task_id="http_sensor_task",
         http_conn_id="rest_conn",
         method="GET",
         endpoint="/api/unknown/23",
