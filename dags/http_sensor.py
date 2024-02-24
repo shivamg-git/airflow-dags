@@ -6,7 +6,7 @@ with DAG(
     dag_id= "http_sensor",
     schedule_interval="@once",
     start_date=datetime.utcnow(),
-    catchup=False
+    catchup=True
 
 ) as dag:
     
