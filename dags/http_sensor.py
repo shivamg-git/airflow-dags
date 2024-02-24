@@ -1,5 +1,5 @@
 from airflow import DAG
-from datetime import datetime
+from datetime import datetime, timedelta
 from airflow.providers.http.sensors.http import HttpSensor
 
 with DAG(
@@ -15,5 +15,6 @@ with DAG(
         http_conn_id="rest_conn",
         method="GET",
         endpoint="/api/unknown/23",
-        execution_timeout=20
+        execution_timeout= timedelta(seconds=60),
+        deferrable = True
     )
