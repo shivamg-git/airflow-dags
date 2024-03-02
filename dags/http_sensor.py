@@ -5,7 +5,7 @@ from airflow.providers.http.sensors.http import HttpSensor
 with DAG(
     dag_id= "http_sensor",
     schedule_interval=None,
-    start_date="0 days",
+    start_date=datetime.utcnow(),
     catchup=False
 
 ) as dag:
