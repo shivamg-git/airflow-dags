@@ -22,13 +22,15 @@ dag = DAG(dag_id='test_k8_retries',
 
 start = EmptyOperator(task_id='start', dag=dag)
 
+parallel_task = []
 for i in range(100):
-    EmptyOperator(
+    taskX = EmptyOperator(
         task_id=f"{i}_operator",
         dag=dag
     )
+    parallel_task.append(taskX)
 
 end = EmptyOperator(task_id='end', dag=dag)
 
 for i in range(100):
-    start >> f"{i}_operator" >> end        
+    start >> parallel_task[i] >> end        
