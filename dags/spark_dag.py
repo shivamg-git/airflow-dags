@@ -24,7 +24,7 @@ dag = DAG(dag_id='test_k8_retries',
 start = EmptyOperator(task_id='start', dag=dag)
 
 parallel_task = []
-for i in range(100):
+for i in range(1):
     taskX = KubernetesPodOperator(
         task_id=f"{i}_operator",
         dag=dag,
@@ -40,5 +40,5 @@ for i in range(100):
 
 end = EmptyOperator(task_id='end', dag=dag)
 
-for i in range(100):
+for i in range(1):
     start >> parallel_task[i] >> end        
